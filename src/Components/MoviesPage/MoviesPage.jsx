@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 
 const MoviesPage = ({ url, apiKey }) => {
+  const match = useRouteMatch();
+  //   console.log(match);
+
   const [queryName, setQueryName] = useState("");
   const [searchName, setSearchName] = useState("");
-  const [searchFilm, setSearchFilm] = useState([]);
-
+  const [searchFilms, setSearchFilms] = useState([]);
+  //   console.log(searchFilm.length);
   const handleChange = (e) => {
     setQueryName(e.target.value);
   };
@@ -21,7 +24,6 @@ const MoviesPage = ({ url, apiKey }) => {
       reset();
     }
   };
-
   const reset = () => {
     setQueryName("");
   };
@@ -41,7 +43,11 @@ const MoviesPage = ({ url, apiKey }) => {
       return;
     }
     fetchSearchMov()
-      .then((searchFilm) => setSearchFilm(searchFilm.results))
+      .then((searchFilm) => {
+        if (searchFilm.results.length === 0) {
+          alert(`Ничего не найдено`);
+        } else setSearchFilms(searchFilm.results);
+      })
       .catch((error) => console.log(error.message));
   }, [searchName]);
 
@@ -58,11 +64,13 @@ const MoviesPage = ({ url, apiKey }) => {
         />
         <button type="submit">ТЫК</button>
       </form>
-      {searchFilm.length !== 0 && (
+      {searchFilms.length !== 0 && (
         <ul className={s.wrap}>
-          {searchFilm.map((film) => (
+          {searchFilms.map((film) => (
             <li key={film.id} className={s.list}>
-              <Link className={s.link}>--{film.title}</Link>
+              <Link to={`${match.url}/${film.id}`} className={s.link}>
+                --{film.title}
+              </Link>
             </li>
           ))}
         </ul>

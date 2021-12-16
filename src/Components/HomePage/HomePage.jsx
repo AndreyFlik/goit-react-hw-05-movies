@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 
 const HomePage = ({ url, apiKey }) => {
   const [trendFilms, setTrendFilms] = useState([]);
-
+  // const [movieId, setMovieId] = useState("");
+  // console.log(movieId);
   const fetchTrendMov = async () => {
     const res = await fetch(`${url}/trending/movie/week?api_key=${apiKey}`);
     if (res.status.ok) {
@@ -15,7 +16,9 @@ const HomePage = ({ url, apiKey }) => {
 
   useEffect(() => {
     fetchTrendMov()
-      .then((trendFilm) => setTrendFilms(trendFilm.results))
+      .then((trendFilm) => {
+        setTrendFilms(trendFilm.results);
+      })
       .catch((error) => console.log(error.message));
   }, []);
 
@@ -25,7 +28,9 @@ const HomePage = ({ url, apiKey }) => {
       <ul className={s.wrap}>
         {trendFilms.map((film) => (
           <li key={film.id} className={s.list}>
-            <Link className={s.link}>--{film.title}</Link>
+            <Link to={`/movies/${film.id}`} className={s.link}>
+              --{film.title}
+            </Link>
           </li>
         ))}
       </ul>
