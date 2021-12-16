@@ -1,0 +1,16 @@
+.tittle {
+  font-size: xx-large;
+  margin-bottom: 20px;
+}
+.list {
+  margin-bottom: 10px;
+}
+.list:last-child {
+  margin-bottom: 0;
+}
+.link {
+  text-decoration: none;
+}
+.wrap {
+  border: 1px solid tomato;
+}

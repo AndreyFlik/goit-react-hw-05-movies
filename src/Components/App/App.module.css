@@ -1,0 +1,16 @@
+.Nav {
+  display: flex;
+  border-bottom: 1px solid #000;
+  margin-bottom: 30px;
+}
+
+.link {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: x-large;
+}
+.activeLink {
+  color: tomato;
+}
