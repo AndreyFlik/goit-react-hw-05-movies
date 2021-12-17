@@ -6,21 +6,22 @@ const HomePage = ({ url, apiKey }) => {
   const [trendFilms, setTrendFilms] = useState([]);
   // const [movieId, setMovieId] = useState("");
   // console.log(movieId);
-  const fetchTrendMov = async () => {
-    const res = await fetch(`${url}/trending/movie/week?api_key=${apiKey}`);
-    if (res.status.ok) {
-      return Promise.reject("Oops, something went wrong");
-    }
-    return res.json();
-  };
 
   useEffect(() => {
+    const fetchTrendMov = async () => {
+      const res = await fetch(`${url}/trending/movie/week?api_key=${apiKey}`);
+      if (res.status.ok) {
+        return Promise.reject("Oops, something went wrong");
+      }
+      return res.json();
+    };
+
     fetchTrendMov()
       .then((trendFilm) => {
         setTrendFilms(trendFilm.results);
       })
       .catch((error) => console.log(error.message));
-  }, []);
+  }, [apiKey, url]);
 
   return (
     <div>

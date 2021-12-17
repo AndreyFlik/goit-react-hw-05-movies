@@ -9,7 +9,9 @@ const MoviesPage = ({ url, apiKey }) => {
   const [queryName, setQueryName] = useState("");
   const [searchName, setSearchName] = useState("");
   const [searchFilms, setSearchFilms] = useState([]);
-  //   console.log(searchFilm.length);
+
+  console.log(searchFilms.length);
+
   const handleChange = (e) => {
     setQueryName(e.target.value);
   };
@@ -28,20 +30,19 @@ const MoviesPage = ({ url, apiKey }) => {
     setQueryName("");
   };
 
-  const fetchSearchMov = async () => {
-    const res = await fetch(
-      `${url}search/movie?api_key=${apiKey}&language=en-US&query=${searchName}&page=1&include_adult=false`
-    );
-    if (res.status.ok) {
-      return Promise.reject("Oops, something went wrong");
-    }
-    return res.json();
-  };
-
   useEffect(() => {
     if (searchName === "") {
       return;
     }
+    const fetchSearchMov = async () => {
+      const res = await fetch(
+        `${url}search/movie?api_key=${apiKey}&language=en-US&query=${searchName}&page=1&include_adult=false`
+      );
+      if (res.status.ok) {
+        return Promise.reject("Oops, something went wrong");
+      }
+      return res.json();
+    };
     fetchSearchMov()
       .then((searchFilm) => {
         if (searchFilm.results.length === 0) {
@@ -49,7 +50,7 @@ const MoviesPage = ({ url, apiKey }) => {
         } else setSearchFilms(searchFilm.results);
       })
       .catch((error) => console.log(error.message));
-  }, [searchName]);
+  }, [apiKey, searchName, url]);
 
   return (
     <>

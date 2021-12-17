@@ -1,0 +1,25 @@
+.Wrap {
+  display: flex;
+  border: 1px solid tomato;
+}
+.Title {
+  font-size: xx-large;
+  margin-bottom: 10px;
+}
+.rate {
+  font-size: large;
+  margin-bottom: 10px;
+}
+.about {
+  margin-bottom: 10px;
+}
+.GanreTitle {
+  font-size: large;
+  margin-bottom: 5px;
+}
+.list {
+  display: flex;
+}
+.listIndent {
+  margin-right: 5px;
+}
