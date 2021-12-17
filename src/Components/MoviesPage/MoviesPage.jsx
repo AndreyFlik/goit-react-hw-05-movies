@@ -10,7 +10,7 @@ const MoviesPage = ({ url, apiKey }) => {
   const [searchName, setSearchName] = useState("");
   const [searchFilms, setSearchFilms] = useState([]);
 
-  console.log(searchFilms.length);
+  // console.log(searchFilms.length);
 
   const handleChange = (e) => {
     setQueryName(e.target.value);
