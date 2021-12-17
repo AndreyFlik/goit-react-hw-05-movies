@@ -1,11 +1,12 @@
 import s from "./HomePage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 const HomePage = ({ url, apiKey }) => {
+  const loc = useLocation();
+  // console.log("HOME", loc);
+
   const [trendFilms, setTrendFilms] = useState([]);
-  // const [movieId, setMovieId] = useState("");
-  // console.log(movieId);
 
   useEffect(() => {
     const fetchTrendMov = async () => {
@@ -29,7 +30,13 @@ const HomePage = ({ url, apiKey }) => {
       <ul className={s.wrap}>
         {trendFilms.map((film) => (
           <li key={film.id} className={s.list}>
-            <Link to={`/movies/${film.id}`} className={s.link}>
+            <Link
+              to={{
+                pathname: `/movies/${film.id}`,
+                state: { from: loc.pathname },
+              }}
+              className={s.link}
+            >
               --{film.title}
             </Link>
           </li>

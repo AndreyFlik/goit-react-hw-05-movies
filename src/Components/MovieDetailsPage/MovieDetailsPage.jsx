@@ -1,19 +1,27 @@
 import s from "./MovieDetailsPage.module.css";
-import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
+import {
+  Link,
+  Route,
+  useParams,
+  useRouteMatch,
+  useLocation,
+  useHistory,
+  Switch,
+} from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Cast from "../Cast/Cast";
 import Reviews from "../Reviews/Reviews";
 
 const MovieDetailsPage = () => {
   const { url } = useRouteMatch();
-  // console.log(url);
+  console.log(`URL`, url);
+  const loc = useLocation();
+  // console.log("MOVIES--FILMS", loc);
+
+  const history = useHistory();
 
   const { movieId } = useParams();
-  const [aboutFilm, setAboutFilm] = useState([]);
-
-  // const [ganres, setGanres] = useState([]);
-  // console.log(ganres);
-  // aboutFilm.genres.map((genre) => setGanres(genre));
+  const [aboutFilm, setAboutFilm] = useState(null);
 
   useEffect(() => {
     const feMov = async () => {
@@ -21,7 +29,7 @@ const MovieDetailsPage = () => {
         `https://api.themoviedb.org/3/movie/${movieId}?api_key=152bf83924057aa5fa2efb38cb6db510`
       );
       if (res.status.ok) {
-        return Promise.reject("Oops, something went wrong");
+        return Promise.reject(new Error("Oops, something went wrong"));
       }
       return res.json();
     };
@@ -30,12 +38,19 @@ const MovieDetailsPage = () => {
       .catch((error) => console.log(error.message));
   }, [movieId]);
 
+  const onGoBack = () => {
+    history.push(loc?.state?.from ?? "/");
+  };
+  console.log(url);
   return (
     <>
-      {aboutFilm.length !== 0 && (
+      {console.log(aboutFilm)}
+      {aboutFilm && (
         <div className={s.Wrap}>
           <div>
-            <button type="button">Вернуться назад</button>
+            <button type="button" onClick={onGoBack}>
+              Вернуться назад
+            </button>
             <img
               src={
                 aboutFilm.poster_path
@@ -67,12 +82,14 @@ const MovieDetailsPage = () => {
         Cast
       </Link>
       <Link to={`${url}/reviews`}>Reviews</Link>
-      <Route path={`${url}/cast`}>
-        <Cast castId={movieId} />
-      </Route>
-      <Route path={`${url}/reviews`}>
-        <Reviews ReviewsId={movieId} />
-      </Route>
+      <Switch>
+        <Route path={`${url}/cast`}>
+          <Cast castId={movieId} />
+        </Route>
+        <Route path={`${url}/reviews`}>
+          <Reviews ReviewsId={movieId} />
+        </Route>
+      </Switch>
     </>
   );
 };

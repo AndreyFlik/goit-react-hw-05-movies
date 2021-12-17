@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 
 // 624860;
 const Cast = ({ castId }) => {
-  const [aboutFilm, setAboutFilm] = useState([]);
+  console.log(`Попали в cast`);
+  const [aboutFilm, setAboutFilm] = useState(null);
 
   useEffect(() => {
+    console.log(`Запрашиваем api`);
     const feMov = async () => {
       const res = await fetch(
         `https://api.themoviedb.org/3/movie/${castId}/credits?api_key=152bf83924057aa5fa2efb38cb6db510`
@@ -19,10 +21,10 @@ const Cast = ({ castId }) => {
       .then((Filminfo) => setAboutFilm(Filminfo.cast))
       .catch((error) => console.log(error.message));
   }, [castId]);
-
+  console.log(`Рендерим каст`);
   return (
     <>
-      {aboutFilm.length !== 0 && (
+      {aboutFilm && (
         <ul>
           {aboutFilm.map((actor) => (
             <li key={actor.id}>

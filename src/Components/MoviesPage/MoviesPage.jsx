@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 
 const MoviesPage = ({ url, apiKey }) => {
+  console.log(`МЫ В MOVIES-PAGE`);
+
   const match = useRouteMatch();
-  //   console.log(match);
+  const loc = useLocation();
+  // console.log("MOVIES", loc);
 
   const [queryName, setQueryName] = useState("");
   const [searchName, setSearchName] = useState("");
   const [searchFilms, setSearchFilms] = useState([]);
-
-  // console.log(searchFilms.length);
 
   const handleChange = (e) => {
     setQueryName(e.target.value);
@@ -69,7 +70,13 @@ const MoviesPage = ({ url, apiKey }) => {
         <ul className={s.wrap}>
           {searchFilms.map((film) => (
             <li key={film.id} className={s.list}>
-              <Link to={`${match.url}/${film.id}`} className={s.link}>
+              <Link
+                to={{
+                  pathname: `${match.url}/${film.id}`,
+                  state: { from: loc.pathname },
+                }}
+                className={s.link}
+              >
                 --{film.title}
               </Link>
             </li>

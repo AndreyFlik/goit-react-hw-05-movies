@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import s from "./App.module.css";
 import HomePage from "../HomePage/HomePage";
 import MoviesPage from "../MoviesPage/MoviesPage";
@@ -19,15 +19,17 @@ function App() {
           Movies
         </NavLink>
       </nav>
-      <Route exact path="/">
-        <HomePage url={URL} apiKey={API_KEY} />
-      </Route>
-      <Route exact path="/movies">
-        <MoviesPage url={URL} apiKey={API_KEY} />
-      </Route>
-      <Route path="/movies/:movieId">
-        <MovieDetailsPage />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          <HomePage url={URL} apiKey={API_KEY} />
+        </Route>
+        <Route exact path="/movies">
+          <MoviesPage url={URL} apiKey={API_KEY} />
+        </Route>
+        <Route exact path="/movies/:movieId">
+          <MovieDetailsPage />
+        </Route>
+      </Switch>
     </>
   );
 }
