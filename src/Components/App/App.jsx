@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/movies">
           <MoviesPage url={URL} apiKey={API_KEY} />
         </Route>
-        <Route exact path="/movies/:movieId">
+        <Route path="/movies/:movieId">
           <MovieDetailsPage />
         </Route>
       </Switch>

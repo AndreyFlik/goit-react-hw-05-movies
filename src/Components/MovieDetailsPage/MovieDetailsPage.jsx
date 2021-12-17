@@ -11,12 +11,12 @@ import {
 import React, { useState, useEffect } from "react";
 import Cast from "../Cast/Cast";
 import Reviews from "../Reviews/Reviews";
-
+// console.log(Cast);
 const MovieDetailsPage = () => {
   const { url } = useRouteMatch();
-  console.log(`URL`, url);
+  // console.log(`URL`, url);
   const loc = useLocation();
-  // console.log("MOVIES--FILMS", loc);
+  console.log("MOVIES--FILMS", loc);
 
   const history = useHistory();
 
@@ -41,7 +41,7 @@ const MovieDetailsPage = () => {
   const onGoBack = () => {
     history.push(loc?.state?.from ?? "/");
   };
-  console.log(url);
+  // console.log(url);
   return (
     <>
       {console.log(aboutFilm)}
