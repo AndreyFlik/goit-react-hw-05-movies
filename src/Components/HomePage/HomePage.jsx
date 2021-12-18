@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 
 const HomePage = ({ url, apiKey }) => {
   const loc = useLocation();
-  // console.log("HOME", loc);
 
   const [trendFilms, setTrendFilms] = useState([]);
 

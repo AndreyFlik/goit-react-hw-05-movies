@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import s from "./Reviews.module.css";
 
-// 624860;
 const Reviews = ({ ReviewsId }) => {
   const [aboutFilm, setAboutFilm] = useState([]);
   const [error, setError] = useState(null);
-  // console.log(aboutFilm.length);
 
   useEffect(() => {
     const feMov = async () => {

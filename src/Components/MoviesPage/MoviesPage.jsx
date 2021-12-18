@@ -3,7 +3,6 @@ import { Link, useRouteMatch, useLocation, useHistory } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 
 const MoviesPage = ({ url, apiKey }) => {
-  // console.log(`МЫ В MOVIES-PAGE`);
   const history = useHistory();
 
   const match = useRouteMatch();
@@ -13,10 +12,8 @@ const MoviesPage = ({ url, apiKey }) => {
   const [queryName, setQueryName] = useState("");
   const [searchName, setSearchName] = useState("");
   const [searchFilms, setSearchFilms] = useState([]);
-  // const [saveAdress, setSaveAdress] = useState(null);
 
   const serchInputValue = new URLSearchParams(loc.search).get("query");
-  // console.log(serchInputValue);
 
   useEffect(() => {
     if (serchInputValue === null) {
@@ -34,12 +31,7 @@ const MoviesPage = ({ url, apiKey }) => {
     if (queryName.trim() === "") {
       alert(`Введите запрос`);
     } else {
-      // console.log(e.target.name.value);
       setSearchName(queryName);
-      // setSaveAdress({
-      //   ...loc,
-      //   search: `query=${queryName}`,
-      // });
       history.push({
         ...loc,
         search: `query=${queryName}`,

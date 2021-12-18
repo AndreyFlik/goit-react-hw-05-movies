@@ -11,11 +11,9 @@ import {
 import React, { useState, useEffect } from "react";
 import Cast from "../Cast/Cast";
 import Reviews from "../Reviews/Reviews";
-// console.log(Cast);
 
 const MovieDetailsPage = () => {
   const { url } = useRouteMatch();
-  // console.log(`URL`, url);
 
   const loc = useLocation();
   console.log("MOVIES--FILMS", loc);
@@ -25,7 +23,6 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   const [aboutFilm, setAboutFilm] = useState(null);
-  // const [saveState, setSaveState] = useState("");
 
   useEffect(() => {
     const feMov = async () => {
@@ -42,15 +39,6 @@ const MovieDetailsPage = () => {
       .catch((error) => console.log(error.message));
   }, [movieId]);
 
-  // useEffect(() => {
-  //   // console.log(loc);
-  //   if (!loc.state) {
-  //     return;
-  //   }
-  //   setSaveState(loc.state);
-  // }, [loc]);
-  // console.log(saveState);
-
   const onGoBack = () => {
     history.push(loc?.state?.from ?? "/");
   };
@@ -60,9 +48,6 @@ const MovieDetailsPage = () => {
       {aboutFilm && (
         <div className={s.Wrap}>
           <div>
-            {/* <button type="button" onClick={() => history.goBack()}>
-              Вернуться назад
-            </button> */}
             <button type="button" onClick={onGoBack}>
               Вернуться назад
             </button>
@@ -102,9 +87,6 @@ const MovieDetailsPage = () => {
       >
         Cast
       </Link>
-      {/* <Link to={`${url}/cast`} className={s.listIndent}>
-        Cast
-      </Link> */}
       <Link
         to={{
           pathname: `${url}/reviews`,
@@ -113,7 +95,6 @@ const MovieDetailsPage = () => {
       >
         Reviews
       </Link>
-      {/* <Link to={`${url}/reviews`}>Reviews</Link> */}
       <Switch>
         <Route path={`${url}/cast`}>
           <Cast castId={movieId} />
