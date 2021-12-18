@@ -14,18 +14,14 @@ import Reviews from "../Reviews/Reviews";
 
 const MovieDetailsPage = () => {
   const { url } = useRouteMatch();
-
   const loc = useLocation();
-  console.log("MOVIES--FILMS", loc);
-
   const history = useHistory();
-
   const { movieId } = useParams();
 
   const [aboutFilm, setAboutFilm] = useState(null);
 
   useEffect(() => {
-    const feMov = async () => {
+    const getDetailMov = async () => {
       const res = await fetch(
         `https://api.themoviedb.org/3/movie/${movieId}?api_key=152bf83924057aa5fa2efb38cb6db510`
       );
@@ -34,7 +30,7 @@ const MovieDetailsPage = () => {
       }
       return res.json();
     };
-    feMov()
+    getDetailMov()
       .then((Filminfo) => setAboutFilm(Filminfo))
       .catch((error) => console.log(error.message));
   }, [movieId]);

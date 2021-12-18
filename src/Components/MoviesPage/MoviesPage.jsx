@@ -7,7 +7,7 @@ const MoviesPage = ({ url, apiKey }) => {
 
   const match = useRouteMatch();
   const loc = useLocation();
-  console.log("MOVIES", loc);
+  // console.log("MOVIES", loc);
 
   const [queryName, setQueryName] = useState("");
   const [searchName, setSearchName] = useState("");

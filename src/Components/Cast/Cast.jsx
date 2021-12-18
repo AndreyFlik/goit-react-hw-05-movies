@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 const Cast = ({ castId }) => {
   const [aboutFilm, setAboutFilm] = useState(null);
 
   useEffect(() => {
-    const feMov = async () => {
+    const getActor = async () => {
       const res = await fetch(
         `https://api.themoviedb.org/3/movie/${castId}/credits?api_key=152bf83924057aa5fa2efb38cb6db510`
       );
@@ -13,7 +14,7 @@ const Cast = ({ castId }) => {
       return res.json();
     };
 
-    feMov()
+    getActor()
       .then((Filminfo) => setAboutFilm(Filminfo.cast))
       .catch((error) => console.log(error.message));
   }, [castId]);
