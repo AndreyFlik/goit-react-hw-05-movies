@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useRouteMatch, useLocation } from "react-router-dom";
+import { Link, useRouteMatch, useLocation, useHistory } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 
 const MoviesPage = ({ url, apiKey }) => {
-  console.log(`МЫ В MOVIES-PAGE`);
+  // console.log(`МЫ В MOVIES-PAGE`);
+  const history = useHistory();
 
   const match = useRouteMatch();
   const loc = useLocation();
@@ -12,6 +13,17 @@ const MoviesPage = ({ url, apiKey }) => {
   const [queryName, setQueryName] = useState("");
   const [searchName, setSearchName] = useState("");
   const [searchFilms, setSearchFilms] = useState([]);
+  // const [saveAdress, setSaveAdress] = useState(null);
+
+  const serchInputValue = new URLSearchParams(loc.search).get("query");
+  // console.log(serchInputValue);
+
+  useEffect(() => {
+    if (serchInputValue === null) {
+      return;
+    }
+    setSearchName(serchInputValue);
+  }, [serchInputValue]);
 
   const handleChange = (e) => {
     setQueryName(e.target.value);
@@ -22,8 +34,16 @@ const MoviesPage = ({ url, apiKey }) => {
     if (queryName.trim() === "") {
       alert(`Введите запрос`);
     } else {
+      // console.log(e.target.name.value);
       setSearchName(queryName);
-
+      // setSaveAdress({
+      //   ...loc,
+      //   search: `query=${queryName}`,
+      // });
+      history.push({
+        ...loc,
+        search: `query=${queryName}`,
+      });
       reset();
     }
   };
@@ -63,6 +83,7 @@ const MoviesPage = ({ url, apiKey }) => {
           autoComplete="off"
           autoFocus
           placeholder="Search your Movies"
+          name="name"
         />
         <button type="submit">ТЫК</button>
       </form>
@@ -73,7 +94,7 @@ const MoviesPage = ({ url, apiKey }) => {
               <Link
                 to={{
                   pathname: `${match.url}/${film.id}`,
-                  state: { from: loc.pathname },
+                  state: { from: loc.pathname + loc.search },
                 }}
                 className={s.link}
               >

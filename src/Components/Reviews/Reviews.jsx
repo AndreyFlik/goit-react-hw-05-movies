@@ -5,7 +5,7 @@ import s from "./Reviews.module.css";
 const Reviews = ({ ReviewsId }) => {
   const [aboutFilm, setAboutFilm] = useState([]);
   const [error, setError] = useState(null);
-  console.log(aboutFilm.length);
+  // console.log(aboutFilm.length);
 
   useEffect(() => {
     const feMov = async () => {
