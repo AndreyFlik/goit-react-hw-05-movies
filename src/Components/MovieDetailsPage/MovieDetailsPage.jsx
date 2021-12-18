@@ -25,7 +25,7 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   const [aboutFilm, setAboutFilm] = useState(null);
-  const [saveState, setSaveState] = useState("");
+  // const [saveState, setSaveState] = useState("");
 
   useEffect(() => {
     const feMov = async () => {
@@ -42,13 +42,13 @@ const MovieDetailsPage = () => {
       .catch((error) => console.log(error.message));
   }, [movieId]);
 
-  useEffect(() => {
-    // console.log(loc);
-    if (!loc.state) {
-      return;
-    }
-    setSaveState(loc.state);
-  }, [loc]);
+  // useEffect(() => {
+  //   // console.log(loc);
+  //   if (!loc.state) {
+  //     return;
+  //   }
+  //   setSaveState(loc.state);
+  // }, [loc]);
   // console.log(saveState);
 
   const onGoBack = () => {

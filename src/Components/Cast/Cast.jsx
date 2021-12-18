@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 // 624860;
 const Cast = ({ castId }) => {
   // console.log(`Попали в cast`);
   const [aboutFilm, setAboutFilm] = useState(null);
-  const loc = useLocation();
+  // const loc = useLocation();
 
   useEffect(() => {
     // console.log(`Запрашиваем api`);

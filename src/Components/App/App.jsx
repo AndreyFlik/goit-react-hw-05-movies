@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch, Redirect } from "react-router-dom";
 import s from "./App.module.css";
 import HomePage from "../HomePage/HomePage";
 import MoviesPage from "../MoviesPage/MoviesPage";
@@ -28,6 +28,9 @@ function App() {
         </Route>
         <Route path="/movies/:movieId">
           <MovieDetailsPage />
+        </Route>
+        <Route>
+          <Redirect from="*" to="/" />
         </Route>
       </Switch>
     </>
