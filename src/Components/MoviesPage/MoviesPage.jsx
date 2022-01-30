@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useRouteMatch, useLocation, useHistory } from "react-router-dom";
-import s from "./MoviesPage.module.css";
+import { Button, Container, Form, ListGroup } from "react-bootstrap";
 
 const MoviesPage = ({ url, apiKey }) => {
   const history = useHistory();
@@ -66,35 +66,43 @@ const MoviesPage = ({ url, apiKey }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          value={queryName}
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search your Movies"
-          name="name"
-        />
-        <button type="submit">ТЫК</button>
-      </form>
-      {searchFilms.length !== 0 && (
-        <ul className={s.wrap}>
-          {searchFilms.map((film) => (
-            <li key={film.id} className={s.list}>
-              <Link
-                to={{
-                  pathname: `${match.url}/${film.id}`,
-                  state: { from: loc.pathname + loc.search },
-                }}
-                className={s.link}
-              >
-                --{film.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Container>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Поиск фильма</Form.Label>
+            <Form.Control
+              className="mb-3"
+              onChange={handleChange}
+              value={queryName}
+              type="text"
+              autoComplete="off"
+              autoFocus
+              placeholder="Search your Movies"
+              name="name"
+            />
+            <Button variant="primary" type="submit">
+              Поиск
+            </Button>
+          </Form.Group>
+        </Form>
+        {searchFilms.length !== 0 && (
+          <ListGroup>
+            {searchFilms.map((film) => (
+              <ListGroup.Item key={film.id}>
+                <Link
+                  className="nav-link"
+                  to={{
+                    pathname: `${match.url}/${film.id}`,
+                    state: { from: loc.pathname + loc.search },
+                  }}
+                >
+                  --{film.title}
+                </Link>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
+      </Container>
     </>
   );
 };
