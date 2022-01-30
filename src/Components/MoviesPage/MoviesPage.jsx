@@ -80,6 +80,7 @@ const MoviesPage = ({ url, apiKey }) => {
               placeholder="Search your Movies"
               name="name"
             />
+
             <Button variant="primary" type="submit">
               Поиск
             </Button>

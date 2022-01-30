@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container, ListGroup, Stack, Row, Card } from "react-bootstrap";
 
 const Cast = ({ castId }) => {
   const [aboutFilm, setAboutFilm] = useState(null);
@@ -21,22 +22,24 @@ const Cast = ({ castId }) => {
   return (
     <>
       {aboutFilm && (
-        <ul>
+        <ListGroup className="d-flex flex-wrap" horizontal>
           {aboutFilm.map((actor) => (
-            <li key={actor.id}>
-              <img
-                src={
-                  actor.profile_path
-                    ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
-                    : `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg`
-                }
-                alt={actor.original_name}
-              />
-              <p>{actor.original_name}</p>
-              <p>{actor.character}</p>
-            </li>
+            <ListGroup.Item key={actor.id}>
+              <Card style={{ width: "15rem" }}>
+                <Card.Img
+                  src={
+                    actor.profile_path
+                      ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
+                      : `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg`
+                  }
+                  alt={actor.original_name}
+                />
+                <Card.Text>{actor.original_name}</Card.Text>
+                <Card.Text>{actor.character}</Card.Text>
+              </Card>
+            </ListGroup.Item>
           ))}
-        </ul>
+        </ListGroup>
       )}
     </>
   );

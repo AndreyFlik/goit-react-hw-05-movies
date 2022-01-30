@@ -1,4 +1,11 @@
-import s from "./MovieDetailsPage.module.css";
+import {
+  Container,
+  ListGroup,
+  Button,
+  Card,
+  Row,
+  Stack,
+} from "react-bootstrap";
 import {
   Link,
   Route,
@@ -41,64 +48,67 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      {aboutFilm && (
-        <div className={s.Wrap}>
+      <Container>
+        {aboutFilm && (
           <div>
-            <button type="button" onClick={onGoBack}>
+            <Button type="button" onClick={onGoBack} className="mb-1">
               Вернуться назад
-            </button>
-            <img
-              src={
-                aboutFilm.poster_path
-                  ? `https://image.tmdb.org/t/p/w300/${aboutFilm.poster_path}`
-                  : `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg`
-              }
-              alt={aboutFilm.original_title}
-            />
+            </Button>
+            <Card>
+              <Stack direction="horizontal" gap={3}>
+                <Card.Img
+                  src={
+                    aboutFilm.poster_path
+                      ? `https://image.tmdb.org/t/p/w300/${aboutFilm.poster_path}`
+                      : `https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg`
+                  }
+                  alt={aboutFilm.original_title}
+                  style={{ width: "18rem" }}
+                />
+                <Card.Body>
+                  <Card.Title>{aboutFilm.original_title}</Card.Title>
+                  <Card.Text>{`Рейтинг ${aboutFilm.popularity}`}</Card.Text>
+                  <Card.Title>Описание</Card.Title>
+                  <Card.Text>{aboutFilm.overview}</Card.Text>
+                  <Card.Title>Жанры:</Card.Title>
+                  {aboutFilm.genres.map(({ id, name }) => (
+                    <Card.Text key={id}>{name}</Card.Text>
+                  ))}
+                </Card.Body>
+              </Stack>
+            </Card>
           </div>
-          <div>
-            <h2 className={s.Title}>{aboutFilm.original_title}</h2>
-            <p className={s.rate}>{`Рейтинг ${aboutFilm.popularity}`}</p>
-            <h3 className={s.Title}>Описание</h3>
-            <p className={s.about}>{aboutFilm.overview}</p>
-            <h4 className={s.GanreTitle}>Жанры:</h4>
-            <div className={s.list}>
-              {aboutFilm.genres.map(({ id, name }) => (
-                <p className={s.listIndent} key={id}>
-                  {name}
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <h2>Дополнительная информация</h2>
-      <Link
-        to={{
-          pathname: `${url}/cast`,
-          state: { from: loc.state.from },
-        }}
-        className={s.listIndent}
-      >
-        Cast
-      </Link>
-      <Link
-        to={{
-          pathname: `${url}/reviews`,
-          state: { from: loc.state.from },
-        }}
-      >
-        Reviews
-      </Link>
-      <Switch>
-        <Route path={`${url}/cast`}>
-          <Cast castId={movieId} />
-        </Route>
-        <Route path={`${url}/reviews`}>
-          <Reviews ReviewsId={movieId} />
-        </Route>
-      </Switch>
+        )}
+        <h2 className="h3">Дополнительная информация:</h2>{" "}
+        <Stack direction="horizontal" gap={3}>
+          <Link
+            className="nav-link"
+            to={{
+              pathname: `${url}/cast`,
+              state: { from: loc.state.from },
+            }}
+          >
+            Cast
+          </Link>
+          <Link
+            className="nav-link"
+            to={{
+              pathname: `${url}/reviews`,
+              state: { from: loc.state.from },
+            }}
+          >
+            Reviews
+          </Link>
+        </Stack>
+        <Switch>
+          <Route path={`${url}/cast`}>
+            <Cast castId={movieId} />
+          </Route>
+          <Route path={`${url}/reviews`}>
+            <Reviews ReviewsId={movieId} />
+          </Route>
+        </Switch>
+      </Container>
     </>
   );
 };
