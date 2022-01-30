@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Spinner } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 const MovieDetailsPage = lazy(() =>
   import(
@@ -36,7 +36,7 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      <Suspense fallback={<h1>Загрузка</h1>}>
+      <Suspense fallback={<Spinner animation="border" />}>
         <Switch>
           <Route exact path="/">
             <HomePage url={URL} apiKey={API_KEY} />

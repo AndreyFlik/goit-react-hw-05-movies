@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, ListGroup, Stack, Row, Card } from "react-bootstrap";
+import { ListGroup, Card } from "react-bootstrap";
 
 const Cast = ({ castId }) => {
   const [aboutFilm, setAboutFilm] = useState(null);

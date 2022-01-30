@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import s from "./Reviews.module.css";
+import { ListGroup, Card } from "react-bootstrap";
 
 const Reviews = ({ ReviewsId }) => {
   const [aboutFilm, setAboutFilm] = useState([]);
@@ -29,16 +29,20 @@ const Reviews = ({ ReviewsId }) => {
     <>
       {error === "no-data" && <h2>Нет рецензий</h2>}
       {aboutFilm.length !== 0 && (
-        <ul className={s.Wrap}>
+        <ListGroup>
           {aboutFilm.map((actor) => (
-            <li key={actor.id}>
-              <h2 className={s.titleName}>author:</h2>
-              <p>{actor.author}</p>
-              <h2 className={s.titleName}>content:</h2>
-              <p>{actor.content}</p>
-            </li>
+            <ListGroup.Item key={actor.id}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Author:</Card.Title>
+                  <Card.Text>{actor.author}</Card.Text>
+                  <Card.Title>Content:</Card.Title>
+                  <Card.Text>{actor.content}</Card.Text>
+                </Card.Body>
+              </Card>
+            </ListGroup.Item>
           ))}
-        </ul>
+        </ListGroup>
       )}
     </>
   );
