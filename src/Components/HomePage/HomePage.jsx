@@ -1,7 +1,6 @@
-import s from "./HomePage.module.css";
 import { Link, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-
+import { Container, ListGroup } from "react-bootstrap";
 const HomePage = ({ url, apiKey }) => {
   const loc = useLocation();
 
@@ -24,24 +23,24 @@ const HomePage = ({ url, apiKey }) => {
   }, [apiKey, url]);
 
   return (
-    <div>
-      <h1 className={s.tittle}>Популярные кинофильмы</h1>
-      <ul className={s.wrap}>
+    <Container>
+      <h1 className="h1">Популярные кинофильмы</h1>
+      <ListGroup>
         {trendFilms.map((film) => (
-          <li key={film.id} className={s.list}>
+          <ListGroup.Item key={film.id}>
             <Link
+              className="nav-link"
               to={{
                 pathname: `/movies/${film.id}`,
                 state: { from: loc.pathname },
               }}
-              className={s.link}
             >
               --{film.title}
             </Link>
-          </li>
+          </ListGroup.Item>
         ))}
-      </ul>
-    </div>
+      </ListGroup>
+    </Container>
   );
 };
 

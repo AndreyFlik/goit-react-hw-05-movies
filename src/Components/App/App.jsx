@@ -1,9 +1,7 @@
 import React, { lazy, Suspense } from "react";
-import { NavLink, Route, Switch, Redirect } from "react-router-dom";
-import s from "./App.module.css";
-// import HomePage from "../HomePage/HomePage";
-// import MoviesPage from "../MoviesPage/MoviesPage";
-// import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { Nav, Navbar, Container } from "react-bootstrap";
+
 const MovieDetailsPage = lazy(() =>
   import(
     "../MovieDetailsPage/MovieDetailsPage" /* webpackChunkName: "MovieDetailsPage"*/
@@ -20,16 +18,31 @@ const URL = "https://api.themoviedb.org/3/";
 const API_KEY = "152bf83924057aa5fa2efb38cb6db510";
 
 function App() {
+  const location = useLocation();
   return (
     <>
-      <nav className={s.Nav}>
-        <NavLink to="/" exact className={s.link} activeClassName={s.activeLink}>
-          Home
-        </NavLink>
-        <NavLink to="/movies" className={s.link} activeClassName={s.activeLink}>
-          Movies
-        </NavLink>
-      </nav>
+      <Navbar bg="dark" variant="dark" className="mb-2">
+        <Container>
+          <Nav variant="pills">
+            <Nav.Item>
+              <Nav.Link
+                href="/"
+                active={location.pathname === "/" ? true : false}
+              >
+                Home
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href="/movies"
+                active={location.pathname === "/movies" ? true : false}
+              >
+                Movies
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Container>
+      </Navbar>
       <Suspense fallback={<h1>Загрузка</h1>}>
         <Switch>
           <Route exact path="/">
